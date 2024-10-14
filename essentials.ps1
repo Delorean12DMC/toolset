@@ -30,7 +30,7 @@ $scriptBlock = {
         # Move .appx to source directory and cleanup
         Write-Output "Cleanup source folder..."
         Move-Item "$sourcePath\microsoft.ui.xaml.2.8.6\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.8.appx" "$sourcePath\Microsoft.UI.Xaml.2.8.appx"
-        Remove-Item -Force -Recurse "$sourcePath\microsoft.ui.xaml.2.8.6"
+        Remove-Item -Force -Recurse "$sourcePath\microsoft.ui.xaml.2.8.6\"
     }
 
     # Function to install dependencies
