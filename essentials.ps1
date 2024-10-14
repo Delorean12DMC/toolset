@@ -105,7 +105,7 @@ $ProgressPreference = 'SilentlyContinue'
 # Local package paths
 $sourcePath = "${PSScriptRoot}\sources"
 CheckSourceDirectory -sourcePath $sourcePath
-
+DownloadAndUnpackDependencies -sourcePath $sourcePath
 $xamlPackage = "$sourcePath\Microsoft.UI.Xaml.2.8.appx"
 $uwpPackage = "$sourcePath\Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
