@@ -25,12 +25,12 @@ $scriptBlock = {
         Invoke-WebRequest -UseBasicParsing -Uri "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -OutFile "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg"
         
         # Expand the .nupkg file
-        Expand-Archive "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" -DestinationPath "$sourcePath\microsoft.ui.xaml.2.8.6" -Force
+        Expand-Archive "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" -DestinationPath "$sourcePath\microsoft.ui.xaml.2.8.6"
         
         # Move .appx to source directory and cleanup
         Write-Output "Cleanup source folder..."
-        Move-Item "$sourcePath\microsoft.ui.xaml.2.8.6\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.8.appx" "$sourcePath\Microsoft.UI.Xaml.2.8.appx" -Force
-        Remove-Item -Force -Recurse "$sourcePath\microsoft.ui.xaml.2.8.6\"
+        Move-Item "$sourcePath\microsoft.ui.xaml.2.8.6\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.8.appx" "$sourcePath\Microsoft.UI.Xaml.2.8.appx"
+        Remove-Item -Force -Recurse "$sourcePath\microsoft.ui.xaml.2.8.6"
     }
 
     # Function to install dependencies
@@ -160,7 +160,7 @@ $scriptBlock = {
 }
 
 # Save the script block to a file
-$scriptPath = "$env:TEMP\essentials.ps1"
+$scriptPath = "$env:TEMP\InstallScript.ps1"
 $scriptBlock | Out-File -FilePath $scriptPath -Encoding utf8
 
 # Execute the script with Bypass execution policy
