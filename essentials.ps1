@@ -154,6 +154,11 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 			WinGetInstall $id
 		}
 	}
+} else {
+	# Install with winget
+	foreach ($id in $winGetInstallSoftware) {
+		WinGetInstall $id
+	}
 }
 
 # Re-enable ProgressBars
