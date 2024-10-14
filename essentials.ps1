@@ -21,9 +21,12 @@ function DownloadAndUnpackDependencies {
 	
 	Write-Output "Downloading dependency microsoft.ui.xaml.2.8.6.nupkg..."
 	Invoke-WebRequest -UseBasicParsing -Uri "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -OutFile "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg"
-	
+
+	# Rename the .nupkg to .zip
+ 	Move-Item "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" "$sourcePath\microsoft.ui.xaml.2.8.6.zip"
+
 	# Expand the .nupkg file
-	Expand-Archive "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" -DestinationPath "$sourcePath\microsoft.ui.xaml.2.8.6"
+	Expand-Archive "$sourcePath\microsoft.ui.xaml.2.8.6.zip" -DestinationPath "$sourcePath\microsoft.ui.xaml.2.8.6"
 	
 	# Move .appx to source directory and cleanup
 	Write-Output "Cleanup source folder..."
