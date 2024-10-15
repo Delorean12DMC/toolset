@@ -17,7 +17,6 @@ function DownloadAndUnpackDependencies {
 	)
 	
 	Write-Output "Downloading dependency Microsoft.VCLibs.x64.14.00.Desktop.appx..."
-	wget.exe # cmdlet test
  	wget.exe "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -O "$sourcePath\Microsoft.VCLibs.x64.14.00.Desktop.appx" --show-progress
 	
 	Write-Output "Downloading dependency microsoft.ui.xaml.2.8.6.nupkg..."
