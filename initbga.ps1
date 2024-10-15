@@ -1,9 +1,3 @@
-# Download and add wget to system32
-function GetWget {
-	Write-Output "Downloading and adding wget"
- 	Invoke-WebRequest -UseBasicParsing -Uri "https://eternallybored.org/misc/wget/1.21.4/64/wget.exe" -OutFile "C:\Windows\System32\wget.exe" -Force
-}
-
 # Check the existence of the source directory
 function CheckSourceDirectory {
 	param (
@@ -110,7 +104,8 @@ function WinGetInstall {
 }
 
 # Get and add wget
-GetWget
+Write-Output "Downloading and adding wget"
+Invoke-WebRequest -UseBasicParsing -Uri "https://eternallybored.org/misc/wget/1.21.4/64/wget.exe" -OutFile "C:\Windows\System32\wget.exe" -Force
 
 # Disable ProgressBars for faster loading times
 $ProgressPreference = 'SilentlyContinue'
