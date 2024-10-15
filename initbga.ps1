@@ -17,11 +17,11 @@ function DownloadAndUnpackDependencies {
 	)
 	
 	Write-Output "Downloading dependency Microsoft.VCLibs.x64.14.00.Desktop.appx..."
-	wget # cmdlet test
- 	wget "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -O "$sourcePath\Microsoft.VCLibs.x64.14.00.Desktop.appx" --show-progress
+	wget.exe # cmdlet test
+ 	wget.exe "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -O "$sourcePath\Microsoft.VCLibs.x64.14.00.Desktop.appx" --show-progress
 	
 	Write-Output "Downloading dependency microsoft.ui.xaml.2.8.6.nupkg..."
-	wget "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -O "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" --show-progress
+	wget.exe "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -O "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" --show-progress
 
 	# Rename the .nupkg to .zip
  	Move-Item "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" "$sourcePath\microsoft.ui.xaml.2.8.6.zip"
@@ -74,7 +74,7 @@ function DownloadAndInstall {
 
 	# Download the file
 	$destinationPath = "$PSScriptRoot\sources\$downloadFilename"
-	wget $downloadSource -O $destinationPath --show-progress
+	wget.exe $downloadSource -O $destinationPath --show-progress
 
 	Write-Output "Installing $($object.name) bundle..."
 
@@ -85,7 +85,7 @@ function DownloadAndInstall {
 		$downloadFilenameLic = $object.assets | Where-Object { $_.name -like "*.xml" } | Select-Object -First 1 -ExpandProperty name
 
 		if ($downloadSourceLic) {
-			wget $downloadSourceLic -O "${PSScriptRoot}\sources\$downloadFilenameLic" --show-progress
+			wget.exe $downloadSourceLic -O "${PSScriptRoot}\sources\$downloadFilenameLic" --show-progress
 		}
 
 		Add-AppxProvisionedPackage -Online -PackagePath $destinationPath -LicensePath "${PSScriptRoot}\sources\$downloadFilenameLic"
@@ -105,7 +105,7 @@ function WinGetInstall {
 
 # Get and add wget
 Write-Output "Downloading and adding wget"
-Invoke-WebRequest -UseBasicParsing -Uri "https://eternallybored.org/misc/wget/1.21.4/64/wget.exe" -OutFile "C:\Windows\System32\wget.exe" -Force
+Invoke-WebRequest -UseBasicParsing -Uri "https://eternallybored.org/misc/wget/1.21.4/64/wget.exe" -OutFile "C:\Windows\System32\wget.exe"
 
 # Disable ProgressBars for faster loading times
 $ProgressPreference = 'SilentlyContinue'
