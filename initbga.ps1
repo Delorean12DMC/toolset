@@ -1,3 +1,9 @@
+# Download and add wget to system32
+function GetWget {
+	Write-Output "Downloading and adding wget"
+ 	Invoke-WebRequest -UseBasicParsing -Uri "https://eternallybored.org/misc/wget/1.21.4/64/wget.exe" -OutFile "C:\Windows\System32\wget.exe" -Force
+}
+
 # Check the existence of the source directory
 function CheckSourceDirectory {
 	param (
@@ -17,10 +23,11 @@ function DownloadAndUnpackDependencies {
 	)
 	
 	Write-Output "Downloading dependency Microsoft.VCLibs.x64.14.00.Desktop.appx..."
-	Invoke-WebRequest -UseBasicParsing -Uri "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -OutFile "$sourcePath\Microsoft.VCLibs.x64.14.00.Desktop.appx"
+	wget # cmdlet test
+ 	wget "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx" -O "$sourcePath\Microsoft.VCLibs.x64.14.00.Desktop.appx" --show-progress
 	
 	Write-Output "Downloading dependency microsoft.ui.xaml.2.8.6.nupkg..."
-	Invoke-WebRequest -UseBasicParsing -Uri "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -OutFile "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg"
+	wget "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -O "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" --show-progress
 
 	# Rename the .nupkg to .zip
  	Move-Item "$sourcePath\microsoft.ui.xaml.2.8.6.nupkg" "$sourcePath\microsoft.ui.xaml.2.8.6.zip"
@@ -73,7 +80,7 @@ function DownloadAndInstall {
 
 	# Download the file
 	$destinationPath = "$PSScriptRoot\sources\$downloadFilename"
-	Invoke-WebRequest -UseBasicParsing -Uri $downloadSource -OutFile $destinationPath
+	wget $downloadSource -O $destinationPath --show-progress
 
 	Write-Output "Installing $($object.name) bundle..."
 
@@ -84,7 +91,7 @@ function DownloadAndInstall {
 		$downloadFilenameLic = $object.assets | Where-Object { $_.name -like "*.xml" } | Select-Object -First 1 -ExpandProperty name
 
 		if ($downloadSourceLic) {
-			Invoke-WebRequest -UseBasicParsing -Uri $downloadSourceLic -OutFile "${PSScriptRoot}\sources\$downloadFilenameLic"
+			wget $downloadSourceLic -O "${PSScriptRoot}\sources\$downloadFilenameLic" --show-progress
 		}
 
 		Add-AppxProvisionedPackage -Online -PackagePath $destinationPath -LicensePath "${PSScriptRoot}\sources\$downloadFilenameLic"
@@ -117,6 +124,8 @@ $bundleUri = @('https://api.github.com/repos/microsoft/winget-cli/releases/lates
 
 # Winget software IDs to install
 $winGetInstallSoftware = @('Notepad++.Notepad++', '7zip.7zip', 'Microsoft.MouseWithoutBorders')
+
+GetWget
 
 # Install local packages
 Write-Output "Installing XAML Package..."
