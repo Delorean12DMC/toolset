@@ -109,6 +109,9 @@ function WinGetInstall {
 	winget install --id $id --silent --accept-source-agreements --accept-package-agreements
 }
 
+# Get and add wget
+GetWget
+
 # Disable ProgressBars for faster loading times
 $ProgressPreference = 'SilentlyContinue'
 
@@ -124,8 +127,6 @@ $bundleUri = @('https://api.github.com/repos/microsoft/winget-cli/releases/lates
 
 # Winget software IDs to install
 $winGetInstallSoftware = @('Notepad++.Notepad++', '7zip.7zip', 'Microsoft.MouseWithoutBorders')
-
-GetWget
 
 # Install local packages
 Write-Output "Installing XAML Package..."
